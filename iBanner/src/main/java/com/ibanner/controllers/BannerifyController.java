@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ibannerify.external.IBannerify;
 
 
-
+/**
+ * Request Entry Controller
+ * @author shyam
+ *
+ */
 public class BannerifyController {
 	
 	@Autowired
