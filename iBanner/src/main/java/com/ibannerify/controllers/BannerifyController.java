@@ -17,8 +17,7 @@ import com.ibannerify.external.IBannerify;
 
 /**
  * Request Entry Controller
- * @author shyam
- *
+ * @author Shyam Ramath
  */
 @RequestMapping("/banner")
 @Controller
@@ -27,12 +26,43 @@ public class BannerifyController {
 	@Autowired
 	IBannerify iBannerify;
 	
+	/**
+	 * 
+	 * @param request
+	 * @param httpServletResponse
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/image", method = RequestMethod.GET)
 	@ResponseBody
 	void getBanner(HttpServletRequest request, HttpServletResponse httpServletResponse) throws IOException{
 		httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
 		httpServletResponse.setHeader("Access-Control-Allow-Methods", "*");
 	    httpServletResponse.setContentType("image/jpeg");
-	    httpServletResponse.getOutputStream().write(IOUtils.toByteArray(iBannerify.getBannerImage()));
+	    httpServletResponse.getOutputStream().write(IOUtils.toByteArray(iBannerify.getBannerImage(request)));
+	}
+	
+	/**
+	 * @param request
+	 * @param httpServletResponse
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/fetchMemberPhoto", method = RequestMethod.GET)
+	@ResponseBody
+	public void fetchMemberPhoto(HttpServletRequest request, HttpServletResponse httpServletResponse) throws IOException {
+		    httpServletResponse.setContentType("image/jpeg");
+		    httpServletResponse.getOutputStream().write(iBannerify.fetchImage(request));
+		
+	}
+	
+	/**
+	 * @param request
+	 * @param httpServletResponse
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/fetchBillingPdf", method = RequestMethod.GET)
+	@ResponseBody
+	public void fetchBillingPdf(HttpServletRequest request, HttpServletResponse httpServletResponse) throws IOException{
+		httpServletResponse.setContentType("application/pdf");
+		httpServletResponse.getOutputStream().write(iBannerify.fetchPdf(request));
 	}
 }
