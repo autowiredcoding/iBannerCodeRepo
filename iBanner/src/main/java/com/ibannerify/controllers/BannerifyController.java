@@ -1,4 +1,4 @@
-package com.ibanner.controllers;
+package com.ibannerify.controllers;
 
 import java.io.IOException;
 
